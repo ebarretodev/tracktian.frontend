@@ -1,8 +1,9 @@
-import React, {useState, useEffect, useReducer} from "react";
-import {Row, Col, Typography, Input, Form, Button, Radio, Switch, Slider, Select, message} from 'antd'
-import { LoadingOutlined } from '@ant-design/icons'
-import axios from "axios";
+import React, {useState, useEffect, ReactElement} from "react";
+import {Row, Col, Typography, Input, Form, Button, message, Select} from 'antd'
+import useApi from "../../../helpers/LocalApi";
 import { useHistory, useParams } from "react-router";
+import { CompanyType, UserType } from '../../../types'
+
 
 type ParamsTypes = {
     id: string,
@@ -17,21 +18,26 @@ const layout = {
 
 const FormApp = () => {
     const [loading, setLoading] = useState(false)
+    const history = useHistory()
+    const [companies, setCompanies] = useState([])
+    const [users, setUsers] = useState([])
+    const api = useApi()
+
     const [loadingPage, setLoadingPage] = useState(true)
-    const [company, setCompany] = useState({
+    const [unit, setUnit] = useState({
         id: 0,
         name: '',
-        address: '',
-        business: '',
+        owner: '',
+        company: '',
     })
-    const history = useHistory()
+
 
     const { id } = useParams<ParamsTypes>()
 
     useEffect(()=>{
-        axios.get(`http://localhost:5000/companies/${id}`)
+        api.getUnit(id)
             .then(res=>{
-                setCompany(res.data)
+                setUnit(res.data)
                 setLoadingPage(false)
             }).catch( error =>{
                 message.error(error)
@@ -39,60 +45,96 @@ const FormApp = () => {
             })
     }, [])
 
+    useEffect(()=>{
+        api.getCompanies()
+            .then(res=>{
+                setCompanies(res.data)
+            })
+    }, [])
+
+    useEffect(()=>{
+        api.getUsers()
+            .then(res=>{
+                setUsers(res.data)
+            })
+    }, [])
+
     const handleSubmit = (values: any) => {
         setLoading(true)
-        axios.put(`http://localhost:5000/users/${company.id}`,values)
+        api.putUnit(unit.id, values)
             .then(res=>{
                 setLoading(false)
-                message.success('User updated successfully!')
-                history.push('/list')
+                message.success('Unit Edited Successfully!')
+                history.push('/units')
             })
             .catch(error => {
                 setLoading(false)
                 message.error(error)
             })
     }
+
+    const optionsCompanies: ReactElement[] = []
+
+    companies.map((company: CompanyType) => {
+        optionsCompanies.push(
+            <Select.Option key={company.id} value={company.name} >{company.name }</Select.Option>
+        )
+    })
+
+    const optionsUsers: ReactElement[] = []
+
+    users.map((user: UserType) => {
+        optionsUsers.push(
+            <Select.Option key={user.id} value={user.username} >{user.username }</Select.Option>
+        )
+    })
+
+
+
     return(
     <div>
         { loadingPage ?
         <div></div> :
     	<div>
-            <Row gutter={[40, 0]}>
-            <Col span={23}>
-                <Title style={{textAlign: 'center'}} level={2}>
-                Please updated the User info
-                { loadingPage ? <LoadingOutlined /> : <div></div>}
-                </Title>
-            </Col>
-            </Row>
-            <Row gutter={[40, 0]}>
-                <Col span={18}>
-                    <Form {...layout} onFinish={handleSubmit}>
-                    <Form.Item name="name" label="Company Name" initialValue={company.name} rules={[{
+        <Row gutter={[40, 0]}>
+          <Col span={23}>
+            <Title style={{textAlign: 'center'}} level={2}>
+            Please Fill the Unit Form
+            </Title>
+        </Col>
+        </Row>
+        <Row gutter={[40, 0]}>
+            <Col span={18}>
+                <Form {...layout} onFinish={handleSubmit}>
+                    <Form.Item name="name" label="Unit Name" initialValue={unit.name} rules={[{
                         required: true,
-                        message: 'Please input your Company name'
+                        message: 'Please input the unit name'
                     }]} >
-                        <Input placeholder="Please enter your company name" />
+                        <Input placeholder="Please enter Unit name" />
                     </Form.Item>
-                    <Form.Item name='address' label='Address' initialValue={company.address} rules={[{
+                    <Form.Item name='company' label='Company' initialValue={unit.company} rules={[{
                         required:true,
-                        message: 'Please input your correct address'
+                        message: 'Please select company name'
                     }]}>
-                        <Input placeholder="Please enter your address" />
+                        <Select placeholder="Please select company name" >
+                            {optionsCompanies}
+                        </Select>
                     </Form.Item>
-                    <Form.Item name='business' label='Business Segment' initialValue={company.business} rules={[{
+                    <Form.Item name='owner' label='Owner Name' initialValue={unit.owner} rules={[{
                         required: true,
-                        message:'Please insert your business segment'
+                        message:'Please select the owner name'
                     }]} >
-                        <Input placeholder="Please insert your business segment"/>
+                        <Select placeholder="Please select the owner name">
+                            {optionsUsers}
+                        </Select>
                     </Form.Item>
-                        <div style={{textAlign: "right"}} >
-                            <Button type="primary" loading={loading} htmlType="submit">Save</Button>{'  '}
-                            <Button type="primary" danger htmlType="button" onClick={()=>{history.push('/companies/')}}>Back</Button>
-                        </div>
-                    </Form>
-                </Col>
-            </Row>
+                    <div style={{textAlign: "right"}} >
+                        <Button type="primary" loading={loading} htmlType="submit">Save</Button>{'  '}
+                        <Button type="primary" danger htmlType="button" onClick={()=>{history.push('/companies/')}}>Back</Button>
+                    </div>
+                </Form>
+            </Col>
+        </Row>
         </div>
         }
     </div>

@@ -33,7 +33,7 @@ const FormApp = () => {
         <Row gutter={[40, 0]}>
           <Col span={23}>
             <Title style={{textAlign: 'center'}} level={2}>
-            Please Fill the User Form
+            Please Fill the Company Form
             </Title>
         </Col>
         </Row>

@@ -1,9 +1,10 @@
-import React, {useState, useEffect } from "react";
+import React, { ReactElement, useState, useEffect } from "react";
 import {Row, Col, Typography, Input, Form, Button, Radio, Switch, Slider, Select, message} from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
 import useApi from "../../../helpers/LocalApi";
 import { useHistory, useParams } from "react-router";
-import { ParamsTypes } from '../../../types'
+import { ParamsTypes, CompanyType } from '../../../types'
+
 
 const {Title} = Typography
 
@@ -15,6 +16,7 @@ const layout = {
 const FormApp = () => {
     const [loading, setLoading] = useState(false)
     const [loadingPage, setLoadingPage] = useState(true)
+    const [companies, setCompanies] = useState([])
     const [user, setUser] = useState({
         id: 0,
         username: '',
@@ -38,6 +40,22 @@ const FormApp = () => {
                 history.push('/users')
             })
     }, [])
+
+    useEffect(()=>{
+        api.getCompanies()
+            .then(res=>{
+                setCompanies(res.data)
+                setLoadingPage(false)
+            })
+    }, [])
+
+    const options: ReactElement[] = []
+
+    companies.map((company: CompanyType) => {
+        options.push(
+            <Select.Option key={company.id} value={company.name} >{company.name }</Select.Option>
+        )
+    })
 
     const handleSubmit = (values: any) => {
         setLoading(true)
@@ -96,7 +114,7 @@ const FormApp = () => {
                             message:'Please select your company'
                         }]}>
                             <Select placeholder="Please select your Company">
-                                <Select.Option value="Industria Freios Supremos">Industria Freios Supremos</Select.Option>
+                                {options}
                             </Select>
                         </Form.Item>
                         <div style={{textAlign: "right"}} >

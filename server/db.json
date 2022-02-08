@@ -27,6 +27,19 @@
       "id": 2
     }
   ],
-  "units": [],
+  "units": [
+    {
+      "name": "Unit One",
+      "company": "Industria Freios Supremos",
+      "owner": "eliabel",
+      "id": 1
+    },
+    {
+      "name": "Unit Two",
+      "company": "Industria Freios Supremos",
+      "owner": "thainara",
+      "id": 2
+    }
+  ],
   "assets": []
 }
