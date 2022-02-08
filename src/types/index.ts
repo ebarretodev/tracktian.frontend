@@ -5,6 +5,13 @@ export type CompanyType = {
     business: string
 }
 
+export type UnitType = {
+    id: number,
+    name: string,
+    company: string,
+    owner: string,
+}
+
 export type UserType = {
     id: number,
     username: string,

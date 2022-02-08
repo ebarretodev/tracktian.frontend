@@ -14,7 +14,10 @@ import FormCompaniesEdit from "../components/pages/Companies/FormEdit";
 import Units from "../components/pages/Units/Units";
 import FormUnits from "../components/pages/Units/Form";
 import FormUnitsEdit from "../components/pages/Units/FormEdit";
-import Assets from "../components/pages/Assets"
+import Assets from "../components/pages/Assets/Assets"
+import FormAssets from "../components/pages/Assets/Form";
+import FormAssetsEdit from "../components/pages/Assets/FormEdit";
+import Overview from "../components/pages/Overview"
 
 const { Header, Sider, Content } = Layout
 
@@ -46,6 +49,8 @@ const ApplicationRoutes = () => {
                     </Header>
                     <Content className="content">
                         <Switch>
+                            <Route path="/overview" exact component={Overview} />
+
                             <Route path="/users" exact component={User} />
                             <Route path="/users/add" exact component={FormUser} />
                             <Route path="/users/:id" component={FormUserEdit} />
@@ -59,8 +64,10 @@ const ApplicationRoutes = () => {
                             <Route path="/units/:id" component={FormUnitsEdit} />
 
                             <Route path="/assets" exact component={Assets} />
+                            <Route path="/assets/add" exact component={FormAssets} />
+                            <Route path="/assets/:id" component={FormAssetsEdit} />
 
-                            <Redirect to="/users" from="/" />
+                            <Redirect to="/overview" from="/" />
                         </Switch>
                     </Content>
                 </Layout>
