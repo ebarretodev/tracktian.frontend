@@ -1,6 +1,6 @@
 import React, {ReactElement, useEffect, useState} from "react";
-import {Row, Col, Typography, Input, Form, Button, Radio, Select, message, SelectProps} from 'antd'
-import axios from "axios";
+import {Row, Col, Typography, Input, Form, Button, Radio, Select, message} from 'antd'
+import useApi from '../../../helpers/LocalApi'
 import { useHistory } from "react-router";
 import { CompanyType } from '../../../types'
 
@@ -16,9 +16,10 @@ const FormApp = () => {
     const [loadingPage, setLoadingPage] = useState(true)
     const history = useHistory()
     const [companies, setCompanies] = useState([])
+    const api = useApi()
 
     useEffect(()=>{
-        axios.get(`http://localhost:5000/companies`)
+        api.getCompanies()
             .then(res=>{
                 setCompanies(res.data)
                 setLoadingPage(false)
@@ -27,7 +28,7 @@ const FormApp = () => {
 
     const handleSubmit = (values: any) => {
         setLoading(true)
-        axios.post(`http://localhost:5000/users`,values)
+        api.postUser(values)
             .then(res=>{
                 setLoading(false)
                 message.success('User Added Successfully!')

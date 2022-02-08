@@ -1,7 +1,7 @@
 import React, {useState, useEffect } from "react";
 import {Row, Col, Typography, Input, Form, Button, Radio, Switch, Slider, Select, message} from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
-import axios from "axios";
+import useApi from "../../../helpers/LocalApi";
 import { useHistory, useParams } from "react-router";
 import { ParamsTypes } from '../../../types'
 
@@ -24,11 +24,12 @@ const FormApp = () => {
 
     })
     const history = useHistory()
+    const api = useApi()
 
     const { id } = useParams<ParamsTypes>()
 
     useEffect(()=>{
-        axios.get(`http://localhost:5000/users/${id}`)
+        api.getUser(id)
             .then(res=>{
                 setUser(res.data)
                 setLoadingPage(false)
@@ -40,7 +41,7 @@ const FormApp = () => {
 
     const handleSubmit = (values: any) => {
         setLoading(true)
-        axios.put(`http://localhost:5000/users/${user.id}`,values)
+        api.putUser(user.id, values)
             .then(res=>{
                 setLoading(false)
                 message.success('User updated successfully!')
