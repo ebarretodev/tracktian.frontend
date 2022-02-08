@@ -17,6 +17,13 @@
         "Industria Freios Supremos"
       ],
       "id": 3
+    },
+    {
+      "username": "teste",
+      "email": "teste@tes.com",
+      "gender": "others",
+      "company": "Industria Freios Supremos",
+      "id": 4
     }
   ],
   "companies": [
@@ -41,5 +48,15 @@
       "id": 2
     }
   ],
-  "assets": []
+  "assets": [
+    {
+      "name": "Machine 1",
+      "model": "XYZ",
+      "description": "Used to controll proccess X",
+      "owner": "Unit One",
+      "health": 84,
+      "status": "Alerting",
+      "id": 1
+    }
+  ]
 }

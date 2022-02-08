@@ -18,7 +18,7 @@ const SideNav = (props: SideNavProps) => {
     }
 
     const handleUserClick = () => {
-        history.push('/users')
+        history.push('/user')
     }
 
     const handleCompaniesClick = () => {
@@ -61,6 +61,7 @@ const SideNav = (props: SideNavProps) => {
                     <span> Assets</span>
                 </Menu.Item>
             </Menu>
+
         </div>
     )
 }
