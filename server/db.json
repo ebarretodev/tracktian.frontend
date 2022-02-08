@@ -1,0 +1,32 @@
+{
+  "users": [
+    {
+      "username": "thainara",
+      "email": "thainara@teste.com",
+      "gender": "female",
+      "company": [
+        "Industria Freios Supremos"
+      ],
+      "id": 2
+    },
+    {
+      "username": "eliabel",
+      "email": "eliabel@teste.com",
+      "gender": "male",
+      "company": [
+        "Industria Freios Supremos"
+      ],
+      "id": 3
+    }
+  ],
+  "companies": [
+    {
+      "name": "Industria Freios Supremos",
+      "address": "Av. Armando Salles de Oliveira, 2160 Conj. Resid. Iraí, Suzano - SP, 08673-115",
+      "business": "auto parts manufacturer",
+      "id": 2
+    }
+  ],
+  "units": [],
+  "assets": []
+}
