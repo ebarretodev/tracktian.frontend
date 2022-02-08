@@ -1,9 +1,8 @@
-import axios, { AxiosResponse } from "axios"
-import { UserType } from '../types'
+import axios from "axios"
 
 const BASE_URL_API = `http://localhost:5000`
 
-const localApi={
+const localApi = {
     getUsers: ()  => { return axios.get(`${BASE_URL_API}/users`)},
     getUser: (id: string) => { return axios.get(`${BASE_URL_API}/users/${id}`)},
     putUser: (id: number, values: any) => { return axios.put(`${BASE_URL_API}/users/${id}`, values)},
@@ -30,4 +29,6 @@ const localApi={
 
 }
 
-export default () => localApi
+const useApi = () => localApi
+
+export default useApi
