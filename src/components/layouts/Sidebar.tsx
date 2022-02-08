@@ -1,7 +1,7 @@
 import React from "react";
 import { Menu } from 'antd'
 import {useHistory} from 'react-router'
-import { UserOutlined, ApartmentOutlined, BankOutlined } from "@ant-design/icons"
+import { UserOutlined, ApartmentOutlined, BankOutlined, SubnodeOutlined } from "@ant-design/icons"
 import "./style.css"
 import Logo from "../../images/logo_white.svg"
 
@@ -17,13 +17,18 @@ const SideNav = (props: SideNavProps) => {
         history.push('/user')
     }
 
-    const handleVideoClick = () => {
+    const handleCompaniesClick = () => {
         history.push('/companies')
     }
 
-    const handleFileClick = () => {
+    const handleUnitsClick = () => {
         history.push('/units')
     }
+
+    const handleAssetsClick = () => {
+        history.push('/assets')
+    }
+
 
     return(
         <div>
@@ -35,16 +40,20 @@ const SideNav = (props: SideNavProps) => {
                     <UserOutlined />
                     <span>Users</span>
                 </Menu.Item>
-                <Menu.Item key='2' onClick={handleVideoClick} >
+                <Menu.Item key='2' onClick={handleCompaniesClick} >
                     <BankOutlined />
 
                     <span> Companies</span>
                 </Menu.Item>
-                <Menu.Item key='3' onClick={handleFileClick} >
+                <Menu.Item key='3' onClick={handleUnitsClick} >
                     <ApartmentOutlined />
                     <span> Units</span>
                 </Menu.Item>
-                
+                <Menu.Item key='4' onClick={handleAssetsClick} >
+                    <SubnodeOutlined />
+                    <span> Assets</span>
+                </Menu.Item>
+
 
             </Menu>
 
