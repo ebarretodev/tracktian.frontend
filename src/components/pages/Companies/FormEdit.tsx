@@ -3,10 +3,7 @@ import {Row, Col, Typography, Input, Form, Button, Radio, Switch, Slider, Select
 import { LoadingOutlined } from '@ant-design/icons'
 import useApi from "../../../helpers/LocalApi";
 import { useHistory, useParams } from "react-router";
-
-type ParamsTypes = {
-    id: string,
-}
+import { ParamsTypes } from '../../../types'
 
 const {Title} = Typography
 
