@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Row, Col, Typography, Input, Form, Button, Radio, Switch, Slider, Select, message} from 'antd'
-import axios from "axios";
+import useApi from "../../../helpers/LocalApi";
 import { useHistory } from "react-router";
 
 const {Title} = Typography
@@ -13,10 +13,11 @@ const layout = {
 const FormApp = () => {
     const [loading, setLoading] = useState(false)
     const history = useHistory()
+    const api = useApi()
 
     const handleSubmit = (values: any) => {
         setLoading(true)
-        axios.post(`http://localhost:5000/companies`,values)
+        api.postCompany(values)
             .then(res=>{
                 setLoading(false)
                 message.success('Company Added Successfully!')

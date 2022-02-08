@@ -2,16 +2,17 @@ import { Row, Col, Typography, Button, Table, message } from "antd";
 import { useHistory } from "react-router";
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import React, {useEffect, useState} from "react";
-import axios from "axios";
+import useApi from '../../../helpers/LocalApi'
 
 const {Title} = Typography
 
 const Companies = () => {
     const history = useHistory()
     const [allData, setAllData] = useState([])
+    const api = useApi()
 
     const getCompanies = () => {
-        axios.get(`http://localhost:5000/companies/`)
+        api.getCompanies()
             .then(res=>{
                 setAllData(res.data)
                 console.log(res.data)
@@ -42,7 +43,7 @@ const Companies = () => {
     ]
 
     const deleteCompany = (company: any) => {
-        axios.delete(`http://localhost:5000/companies/${company.id}`)
+        api.deleteCompany(company.id)
             .then(res=>{
                 message.success('Company deleted Successfully!')
                 getCompanies()
