@@ -1,0 +1,51 @@
+.div-info {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 0 20px;
+    padding: 5px 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    align-items: center;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.div-info-data{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    height: max-content;
+}
+
+.div-info-data-item{
+    flex: 0.3;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.div-info-data-item span{
+    font-weight: bold;
+}
+
+.div-center-item {
+    margin: 5px;
+}
+
+.div-dashboard{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.div-chart {
+    display: inline-block;
+    text-align: center;
+    width: 48%;
+    margin: 1%;
+    padding: 1%;
+}
+
+
