@@ -17,13 +17,6 @@
         "Industria Freios Supremos"
       ],
       "id": 3
-    },
-    {
-      "username": "teste",
-      "email": "teste@tes.com",
-      "gender": "others",
-      "company": "Industria Freios Supremos",
-      "id": 4
     }
   ],
   "companies": [
@@ -54,9 +47,27 @@
       "model": "XYZ",
       "description": "Used to controll proccess X",
       "owner": "Unit One",
-      "health": 84,
+      "health": 97,
       "status": "Alerting",
       "id": 1
+    },
+    {
+      "name": "Machine 2",
+      "model": "XPTO",
+      "description": "Qualquer coisa",
+      "owner": "Unit Two",
+      "health": 44,
+      "status": "Stopped",
+      "id": 2
+    },
+    {
+      "name": "Machine 3",
+      "model": "XYZ",
+      "description": "sdsadsa",
+      "owner": "Unit One",
+      "health": 8,
+      "status": "Running",
+      "id": 3
     }
   ]
 }
