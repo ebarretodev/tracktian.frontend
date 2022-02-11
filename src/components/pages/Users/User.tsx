@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Row, Col, Button, Typography, message } from 'antd'
+import { Table, Row, Col, Button, Typography, message, Space, Popconfirm } from 'antd'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import { useHistory } from "react-router";
 import useApi from '../../../helpers/LocalApi'
@@ -64,11 +64,13 @@ const User = () => {
             email: user.email,
             gender: user.gender,
             company: user.company,
-            actions:<div>
+            actions:<Space>
                         <Button type="default" htmlType="button" onClick={()=>{history.push(`/users/${user.id}`)}}><EditOutlined /></Button>
-                        {'   '}
-                        <Button type="default" danger htmlType="button" onClick={()=>{deleteUser(user)}} ><DeleteOutlined /></Button>
-                    </div>,
+                        <Popconfirm title="Are you sure to delete this user?" onConfirm={()=>{deleteUser(user)}} okText="Yes" cancelText="No" >
+                            <Button type="default" danger htmlType="button" ><DeleteOutlined /></Button>
+                        </Popconfirm>
+
+                    </Space>,
         })
         return data
     })

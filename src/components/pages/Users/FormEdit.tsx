@@ -1,5 +1,5 @@
 import React, { ReactElement, useState, useEffect } from "react";
-import {Row, Col, Typography, Input, Form, Button, Radio, Switch, Slider, Select, message} from 'antd'
+import {Row, Col, Typography, Input, Form, Button, Radio, Select, message} from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
 import useApi from "../../../helpers/LocalApi";
 import { useHistory, useParams } from "react-router";
@@ -63,7 +63,7 @@ const FormApp = () => {
             .then(res=>{
                 setLoading(false)
                 message.success('User updated successfully!')
-                history.push('/list')
+                history.push('/users')
             })
             .catch(error => {
                 setLoading(false)
@@ -119,7 +119,7 @@ const FormApp = () => {
                         </Form.Item>
                         <div style={{textAlign: "right"}} >
                             <Button type="primary" loading={loading} htmlType="submit">Save</Button>{'  '}
-                            <Button type="primary" danger htmlType="button" onClick={()=>{history.push('/list')}}>Back</Button>
+                            <Button type="primary" danger htmlType="button" onClick={()=>{history.push('/users')}}>Back</Button>
                         </div>
                     </Form>
                 </Col>

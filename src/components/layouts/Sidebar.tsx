@@ -13,12 +13,12 @@ const SideNav = (props: SideNavProps) => {
     const { collapse } = props
     const history = useHistory()
 
-    const handleOverviewClick = () => {
-        history.push('/overview')
+    const handleDashboardClick = () => {
+        history.push('/dashboard')
     }
 
     const handleUserClick = () => {
-        history.push('/user')
+        history.push('/users')
     }
 
     const handleCompaniesClick = () => {
@@ -40,9 +40,9 @@ const SideNav = (props: SideNavProps) => {
                 { collapse ? <div></div> : <img src={Logo} /> }
             </div>
             <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-                <Menu.Item key='1' onClick={handleOverviewClick} >
+                <Menu.Item key='1' onClick={handleDashboardClick} >
                     <AreaChartOutlined />
-                    <span> Overview</span>
+                    <span> Dashboard</span>
                 </Menu.Item>
                 <Menu.Item key='2' onClick={handleUserClick} >
                     <UserOutlined />

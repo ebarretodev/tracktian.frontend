@@ -1,4 +1,4 @@
-import { Row, Col, Typography, Button, Table, message } from "antd";
+import { Row, Col, Typography, Button, Table, message, Space, Popconfirm } from "antd";
 import { useHistory } from "react-router";
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import React, {useEffect, useState} from "react";
@@ -61,11 +61,13 @@ const Companies = () => {
             name: company.name,
             address: company.address,
             business: company.business,
-            actions:<div>
+            actions:<Space>
                         <Button type="default" htmlType="button" onClick={()=>{history.push(`/companies/${company.id}`)}}><EditOutlined /></Button>
-                        {'   '}
-                        <Button type="default" danger htmlType="button" onClick={()=>{deleteCompany(company)}} ><DeleteOutlined /></Button>
-                    </div>,
+                        <Popconfirm title="Are you sure to delete this user?" onConfirm={()=>{deleteCompany(company)}} okText="Yes" cancelText="No" >
+                            <Button type="default" danger htmlType="button" ><DeleteOutlined /></Button>
+                        </Popconfirm>
+
+                    </Space>,
         })
         return data
     })

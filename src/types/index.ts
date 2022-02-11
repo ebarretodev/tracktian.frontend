@@ -12,6 +12,18 @@ export type UnitType = {
     owner: string,
 }
 
+export type AssetType = {
+    id: number,
+    name: string,
+    model: string,
+    owner: string,
+    description: string,
+    health: string,
+    status: string
+}
+
+
+
 export type UserType = {
     id: number,
     username: string,
@@ -23,5 +35,12 @@ export type ParamsTypes = {
     id: string,
 }
 
-
-
+export type DataDashboardType = {
+    totalAssets: number,
+    totalUnits: number,
+    stoppedCount: number,
+    runningCount: number,
+    alertingCount: number,
+    healthRatio: number,
+    assets: Array<AssetType>
+}

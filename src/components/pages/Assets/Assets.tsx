@@ -1,4 +1,4 @@
-import { Row, Col, Typography, Button, Table, message } from "antd";
+import { Row, Col, Typography, Button, Table, message, Space, Popconfirm } from "antd";
 import { useHistory } from "react-router";
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
 import React, {useEffect, useState} from "react";
@@ -15,7 +15,6 @@ const Assets = () => {
         api.getAssets()
             .then(res=>{
                 setAllData(res.data)
-                console.log(res.data)
             })
     }
 
@@ -76,11 +75,12 @@ const Assets = () => {
             owner: asset.owner,
             status: asset.status,
             health: `${asset.health}%`,
-            actions:<div>
+            actions:<Space>
                         <Button type="default" htmlType="button" onClick={()=>{history.push(`/assets/${asset.id}`)}}><EditOutlined /></Button>
-                        {'   '}
-                        <Button type="default" danger htmlType="button" onClick={()=>{deleteAsset(asset)}} ><DeleteOutlined /></Button>
-                    </div>,
+                        <Popconfirm title="Are you sure to delete this user?" onConfirm={()=>{deleteAsset(asset)}} okText="Yes" cancelText="No" >
+                            <Button type="default" danger htmlType="button" ><DeleteOutlined /></Button>
+                        </Popconfirm>
+                    </Space>,
         })
         return data
     })

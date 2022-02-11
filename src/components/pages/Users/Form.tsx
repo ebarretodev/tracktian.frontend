@@ -32,7 +32,7 @@ const FormApp = () => {
             .then(res=>{
                 setLoading(false)
                 message.success('User Added Successfully!')
-                history.push('/list')
+                history.push('/users')
             })
             .catch(error => {
                 setLoading(false)
@@ -94,7 +94,7 @@ const FormApp = () => {
                         </Form.Item>
                         <div style={{textAlign: "right"}} >
                             <Button type="primary" loading={loading} htmlType="submit">Save</Button>{'  '}
-                            <Button type="primary" danger htmlType="button" onClick={()=>{history.push('/list')}}>Back</Button>
+                            <Button type="primary" danger htmlType="button" onClick={()=>{history.push('/users')}}>Back</Button>
                         </div>
                     </Form>
                 </Col>

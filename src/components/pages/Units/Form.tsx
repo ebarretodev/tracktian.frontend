@@ -100,7 +100,7 @@ const FormApp = () => {
                     </Form.Item>
                     <div style={{textAlign: "right"}} >
                         <Button type="primary" loading={loading} htmlType="submit">Save</Button>{'  '}
-                        <Button type="primary" danger htmlType="button" onClick={()=>{history.push('/companies/')}}>Back</Button>
+                        <Button type="primary" danger htmlType="button" onClick={()=>{history.push('/units')}}>Back</Button>
                     </div>
                 </Form>
             </Col>
