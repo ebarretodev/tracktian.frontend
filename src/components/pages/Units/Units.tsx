@@ -30,7 +30,7 @@ const Units = () => {
     }
 
     const deleteUnit = (unit: any) => {
-        api.deleteUnit(unit.id)
+        api.deleteUnit(unit._id)
             .then(res=>{
                 message.success('Unit deleted Successfully!')
                 getUnits()
@@ -44,12 +44,12 @@ const Units = () => {
 
     allData.map((unit:any)=>{
         data.push({
-            key: unit.id,
+            key: unit._id,
             name: unit.name,
             owner: unit.owner,
             company: unit.company,
             actions:<Space>
-                        <Button type="default" htmlType="button" onClick={()=>{history.push(`/units/${unit.id}`)}}><EditOutlined /></Button>
+                        <Button type="default" htmlType="button" onClick={()=>{history.push(`/units/${unit._id}`)}}><EditOutlined /></Button>
                         <Popconfirm title="Are you sure to delete this user?" onConfirm={()=>{deleteUnit(unit)}} okText="Yes" cancelText="No" >
                             <Button type="default" danger htmlType="button" ><DeleteOutlined /></Button>
                         </Popconfirm>

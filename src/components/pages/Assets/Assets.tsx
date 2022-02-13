@@ -54,7 +54,7 @@ const Assets = () => {
     ]
 
     const deleteAsset = (company: any) => {
-        api.deleteAsset(company.id)
+        api.deleteAsset(company._id)
             .then(res=>{
                 message.success('Company deleted Successfully!')
                 getAssets()
@@ -68,7 +68,7 @@ const Assets = () => {
 
     allData.map((asset:any)=>{
         data.push({
-            key: asset.id,
+            key: asset._id,
             name: asset.name,
             model: asset.model,
             description: asset.description,
@@ -76,7 +76,7 @@ const Assets = () => {
             status: asset.status,
             health: `${asset.health}%`,
             actions:<Space>
-                        <Button type="default" htmlType="button" onClick={()=>{history.push(`/assets/${asset.id}`)}}><EditOutlined /></Button>
+                        <Button type="default" htmlType="button" onClick={()=>{history.push(`/assets/${asset._id}`)}}><EditOutlined /></Button>
                         <Popconfirm title="Are you sure to delete this user?" onConfirm={()=>{deleteAsset(asset)}} okText="Yes" cancelText="No" >
                             <Button type="default" danger htmlType="button" ><DeleteOutlined /></Button>
                         </Popconfirm>

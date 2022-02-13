@@ -17,9 +17,9 @@ const FormApp = () => {
     const history = useHistory()
     const api = useApi()
     const [units, setUnits] = useState([])
-    const { id } = useParams<ParamsTypes>()
+    const { _id } = useParams<ParamsTypes>()
     const [asset, setAsset] = useState({
-        id: 0,
+        _id: '',
         name: '',
         model: '',
         description: '',
@@ -28,7 +28,7 @@ const FormApp = () => {
         health: '',
     })
     useEffect(()=>{
-        api.getAsset(id)
+        api.getAsset(_id)
             .then(res=>{
                 setAsset(res.data)
                 setLoadingPage(false)
@@ -49,13 +49,13 @@ const FormApp = () => {
 
     units.map((unit: UnitType) => {
         optionsUnits.push(
-            <Select.Option key={unit.id} value={unit.name} >{unit.name }</Select.Option>
+            <Select.Option key={unit._id} value={unit.name} >{unit.name }</Select.Option>
         )
     })
 
     const handleSubmit = (values: any) => {
         setLoading(true)
-        api.putAsset(asset.id, values)
+        api.putAsset(asset._id, values)
             .then(res=>{
                 setLoading(false)
                 message.success('Asset updated Successfully!')

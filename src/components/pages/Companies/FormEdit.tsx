@@ -16,17 +16,17 @@ const FormApp = () => {
     const [loading, setLoading] = useState(false)
     const [loadingPage, setLoadingPage] = useState(true)
     const [company, setCompany] = useState({
-        id: 0,
+        _id: '',
         name: '',
         address: '',
         business: '',
     })
     const history = useHistory()
     const api = useApi()
-    const { id } = useParams<ParamsTypes>()
+    const { _id } = useParams<ParamsTypes>()
 
     useEffect(()=>{
-        api.getCompany(id)
+        api.getCompany(_id)
             .then(res=>{
                 setCompany(res.data)
                 setLoadingPage(false)
@@ -38,11 +38,11 @@ const FormApp = () => {
 
     const handleSubmit = (values: any) => {
         setLoading(true)
-        api.putCompany(company.id,values)
+        api.putCompany(company._id,values)
             .then(res=>{
                 setLoading(false)
                 message.success('User updated successfully!')
-                history.push('/list')
+                history.push('/companies')
             })
             .catch(error => {
                 setLoading(false)

@@ -43,7 +43,7 @@ const Companies = () => {
     ]
 
     const deleteCompany = (company: any) => {
-        api.deleteCompany(company.id)
+        api.deleteCompany(company._id)
             .then(res=>{
                 message.success('Company deleted Successfully!')
                 getCompanies()
@@ -57,12 +57,12 @@ const Companies = () => {
 
     allData.map((company:any)=>{
         data.push({
-            key: company.id,
+            key: company._id,
             name: company.name,
             address: company.address,
             business: company.business,
             actions:<Space>
-                        <Button type="default" htmlType="button" onClick={()=>{history.push(`/companies/${company.id}`)}}><EditOutlined /></Button>
+                        <Button type="default" htmlType="button" onClick={()=>{history.push(`/companies/${company._id}`)}}><EditOutlined /></Button>
                         <Popconfirm title="Are you sure to delete this user?" onConfirm={()=>{deleteCompany(company)}} okText="Yes" cancelText="No" >
                             <Button type="default" danger htmlType="button" ><DeleteOutlined /></Button>
                         </Popconfirm>

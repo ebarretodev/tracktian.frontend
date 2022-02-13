@@ -47,7 +47,7 @@ const User = () => {
 
 
     const deleteUser = (user: any) => {
-        api.deleteUser(user.id)
+        api.deleteUser(user._id)
             .then(res=>{
                 message.success('User deleted successfully!')
                 getAllUsers()
@@ -59,13 +59,13 @@ const User = () => {
 
     allData.map((user:any)=>{
         data.push({
-            key: user.id,
+            key: user._id,
             username: user.username,
             email: user.email,
             gender: user.gender,
             company: user.company,
             actions:<Space>
-                        <Button type="default" htmlType="button" onClick={()=>{history.push(`/users/${user.id}`)}}><EditOutlined /></Button>
+                        <Button type="default" htmlType="button" onClick={()=>{history.push(`/users/${user._id}`)}}><EditOutlined /></Button>
                         <Popconfirm title="Are you sure to delete this user?" onConfirm={()=>{deleteUser(user)}} okText="Yes" cancelText="No" >
                             <Button type="default" danger htmlType="button" ><DeleteOutlined /></Button>
                         </Popconfirm>

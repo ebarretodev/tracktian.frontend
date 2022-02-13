@@ -44,7 +44,7 @@ const FormApp = () => {
 
     companies.map((company: CompanyType) => {
         options.push(
-            <Select.Option key={company.id} value={company.name} >{company.name }</Select.Option>
+            <Select.Option key={company._id} value={company.name} >{company.name }</Select.Option>
         )
     })
 

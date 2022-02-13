@@ -1,19 +1,19 @@
 export type CompanyType = {
-    id: number,
+    _id: string,
     name: string,
     address: string,
     business: string
 }
 
 export type UnitType = {
-    id: number,
+    _id: string,
     name: string,
     company: string,
     owner: string,
 }
 
 export type AssetType = {
-    id: number,
+    _id: string,
     name: string,
     model: string,
     owner: string,
@@ -25,14 +25,14 @@ export type AssetType = {
 
 
 export type UserType = {
-    id: number,
+    _id: string,
     username: string,
     email: string,
     company:string,
 }
 
 export type ParamsTypes = {
-    id: string,
+    _id: string,
 }
 
 export type DataDashboardType = {

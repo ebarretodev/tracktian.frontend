@@ -28,7 +28,7 @@ const FormApp = () => {
 
     units.map((unit: UnitType) => {
         optionsUnits.push(
-            <Select.Option key={unit.id} value={unit.name} >{unit.name }</Select.Option>
+            <Select.Option key={unit._id} value={unit.name} >{unit.name }</Select.Option>
         )
     })
 

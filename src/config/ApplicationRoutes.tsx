@@ -53,19 +53,19 @@ const ApplicationRoutes = () => {
 
                             <Route path="/users" exact component={User} />
                             <Route path="/users/add" exact component={FormUser} />
-                            <Route path="/users/:id" component={FormUserEdit} />
+                            <Route path="/users/:_id" component={FormUserEdit} />
 
                             <Route path="/companies" exact component={Companies} />
                             <Route path="/companies/add" exact component={FormCompanies} />
-                            <Route path="/companies/:id" component={FormCompaniesEdit} />
+                            <Route path="/companies/:_id" component={FormCompaniesEdit} />
 
                             <Route path="/units" exact component={Units} />
                             <Route path="/units/add" exact component={FormUnits} />
-                            <Route path="/units/:id" component={FormUnitsEdit} />
+                            <Route path="/units/:_id" component={FormUnitsEdit} />
 
                             <Route path="/assets" exact component={Assets} />
                             <Route path="/assets/add" exact component={FormAssets} />
-                            <Route path="/assets/:id" component={FormAssetsEdit} />
+                            <Route path="/assets/:_id" component={FormAssetsEdit} />
 
                             <Redirect to="/dashboard" from="/" />
                         </Switch>

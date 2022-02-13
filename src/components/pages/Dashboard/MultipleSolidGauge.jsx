@@ -66,15 +66,17 @@ const MultipleSolidGauge = (props) => {
 
 
   const updateSeries = (dataRun, dataStopped, dataAlert) => {
+    const data = []
+    if (dataRun != 0){ data.push({ name: 'Running', y: dataRun, color: Highcharts.getOptions().colors[0] })}
+    if (dataStopped != 0){ data.push({ name: 'Stopped', y: dataStopped, color: Highcharts.getOptions().colors[1] })}
+    if(dataAlert != 0){ data.push({ name: 'Alert', y: dataAlert, color: Highcharts.getOptions().colors[2] })}
+
+    console.log()
 
     setChartOptions({
       series: [{
         name: 'Quantidade',
-        data: [
-          { name: 'Running', y: dataRun },
-          { name: 'Stopped', y: dataStopped },
-          { name: 'Alerting' , y: dataAlert },
-        ]
+        data: data
     }]
     });
   }

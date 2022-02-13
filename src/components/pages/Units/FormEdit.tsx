@@ -6,7 +6,7 @@ import { CompanyType, UserType } from '../../../types'
 
 
 type ParamsTypes = {
-    id: string,
+    _id: string,
 }
 
 const {Title} = Typography
@@ -25,17 +25,17 @@ const FormApp = () => {
 
     const [loadingPage, setLoadingPage] = useState(true)
     const [unit, setUnit] = useState({
-        id: 0,
+        _id: '',
         name: '',
         owner: '',
         company: '',
     })
 
 
-    const { id } = useParams<ParamsTypes>()
+    const { _id } = useParams<ParamsTypes>()
 
     useEffect(()=>{
-        api.getUnit(id)
+        api.getUnit(_id)
             .then(res=>{
                 setUnit(res.data)
                 setLoadingPage(false)
@@ -61,7 +61,7 @@ const FormApp = () => {
 
     const handleSubmit = (values: any) => {
         setLoading(true)
-        api.putUnit(unit.id, values)
+        api.putUnit(unit._id, values)
             .then(res=>{
                 setLoading(false)
                 message.success('Unit Edited Successfully!')
@@ -77,7 +77,7 @@ const FormApp = () => {
 
     companies.map((company: CompanyType) => {
         optionsCompanies.push(
-            <Select.Option key={company.id} value={company.name} >{company.name }</Select.Option>
+            <Select.Option key={company._id} value={company.name} >{company.name }</Select.Option>
         )
     })
 
@@ -85,7 +85,7 @@ const FormApp = () => {
 
     users.map((user: UserType) => {
         optionsUsers.push(
-            <Select.Option key={user.id} value={user.username} >{user.username }</Select.Option>
+            <Select.Option key={user._id} value={user.username} >{user.username }</Select.Option>
         )
     })
 

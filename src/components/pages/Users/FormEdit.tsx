@@ -18,7 +18,7 @@ const FormApp = () => {
     const [loadingPage, setLoadingPage] = useState(true)
     const [companies, setCompanies] = useState([])
     const [user, setUser] = useState({
-        id: 0,
+        _id: '',
         username: '',
         email: '',
         gender: '',
@@ -28,11 +28,12 @@ const FormApp = () => {
     const history = useHistory()
     const api = useApi()
 
-    const { id } = useParams<ParamsTypes>()
+    const { _id } = useParams<ParamsTypes>()
 
     useEffect(()=>{
-        api.getUser(id)
+        api.getUser(_id)
             .then(res=>{
+                console.log(res)
                 setUser(res.data)
                 setLoadingPage(false)
             }).catch( error =>{
@@ -53,13 +54,13 @@ const FormApp = () => {
 
     companies.map((company: CompanyType) => {
         options.push(
-            <Select.Option key={company.id} value={company.name} >{company.name }</Select.Option>
+            <Select.Option key={company._id} value={company.name} >{company.name }</Select.Option>
         )
     })
 
     const handleSubmit = (values: any) => {
         setLoading(true)
-        api.putUser(user.id, values)
+        api.putUser(user._id, values)
             .then(res=>{
                 setLoading(false)
                 message.success('User updated successfully!')

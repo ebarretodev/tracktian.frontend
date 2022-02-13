@@ -17,7 +17,7 @@ const layout = {
 const Dashboard = () =>{
     const [companies, setCompanies] = useState([{
         name: '',
-        id: 0,
+        _id: '',
         address: '',
         business: ''
     }])
@@ -31,6 +31,7 @@ const Dashboard = () =>{
     const [loadingUnits, setLoadingUnits] = useState(false)
     const [loadingAssets, setLoadingAssets] = useState(false)
     const [loadingUsers, setLoadingUsers] = useState(false)
+    const [loadingCharts, setLoadingCharts] = useState(false)
 
     const [companySelected, setCompanySelected] = useState<string|undefined>()
     const [unitSelected, setUnitSelected] = useState<string|undefined>()
@@ -42,13 +43,12 @@ const Dashboard = () =>{
     const [selectEnableUnit, setSelectEnableUnit] = useState(true)
     const [selectEnableAsset, setSelectEnableAsset] = useState(true)
 
-    const [options, setOptions] = useState<any | undefined >()
-
-
     useEffect(()=>{
         api.getCompanies()
             .then(res=>{
                 setCompanies(res.data)
+                setCompanySelected(res.data[0].name)
+                setSelectEnableUnit(false)
                 setLoadingCompanies(true)
             })
         api.getUnits()
@@ -61,28 +61,24 @@ const Dashboard = () =>{
                 setAssets(res.data)
                 setLoadingAssets(true)
             })
-
-    api.getUsers()
+        api.getUsers()
             .then(res=>{
                 setUsers(res.data)
                 setLoadingUsers(true)
             })
-    }, [])
+    },[])
 
+    useEffect(()=>{
+        if(loadingAssets && loadingCompanies && loadingUnits && loadingUsers){
+            setLoadingCharts(true)
+        }
+    },[loadingAssets, loadingCompanies, loadingUnits, loadingUsers])
 
     const optionsCompanies: ReactElement[] = []
     companies.map((company: CompanyType, index) => {
         optionsCompanies.push(
-            <Select.Option key={company.id} value={company.name} > <CompanyIcon /> {company.name }</Select.Option>
+            <Select.Option key={company._id} value={company.name} > <CompanyIcon /> {company.name }</Select.Option>
         )})
-    useEffect(()=>{
-        companies.map((company: CompanyType, index) => {
-            if(index === 0){
-                setCompanySelected(company.name)
-                setSelectEnableUnit(false)
-            }
-        })
-    },[ companies ])
 
     const selectCompanyChange = (newValue: any) => {
             setCompanySelected(newValue)
@@ -109,10 +105,9 @@ const Dashboard = () =>{
 
     const optionsUnits: ReactElement[] = []
     units.map((unit: UnitType) => {
-
         if(unit.company === companySelected){
             optionsUnits.push(
-                <Select.Option key={unit.id} value={unit.name} ><UnitIcon /> {unit.name}</Select.Option>
+                <Select.Option key={unit._id} value={unit.name} ><UnitIcon /> {unit.name}</Select.Option>
             )
         }
     })
@@ -132,7 +127,7 @@ const Dashboard = () =>{
     assets.map((asset: AssetType) => {
         if(asset.owner === unitSelected){
             optionsAssets.push(
-                <Select.Option key={asset.id} value={asset.name} ><AssetIcon /> {asset.name }</Select.Option>
+                <Select.Option key={asset._id} value={asset.name} ><AssetIcon /> {asset.name }</Select.Option>
             )
         }
     })
@@ -140,7 +135,6 @@ const Dashboard = () =>{
     const selectAssetChange = (newValue: any) => {
         setAssetSelected(newValue)
     }
-
 
     useEffect(()=>{
         let allAssetsFromSelection: Array<AssetType> = []
@@ -167,6 +161,7 @@ const Dashboard = () =>{
         let alertingCount = allAssetsFromSelection.filter((asset: AssetType) => asset.status.toLowerCase() === 'alerting').length
         let runningCount = allAssetsFromSelection.filter((asset: AssetType) => asset.status.toLowerCase() === 'running').length
         let healthRatio = Math.round(allAssetsFromSelection.length != 0 ? allAssetsFromSelection.map((asset: AssetType) => parseInt(asset.health)).reduce((acc, cur) => acc + cur) / allAssetsFromSelection.length : 0)
+
         setDataDasaboard({
             totalAssets,
             totalUnits,
@@ -176,10 +171,12 @@ const Dashboard = () =>{
             healthRatio,
             assets: allAssetsFromSelection
         })
+
         const data = [{}]
+
         allAssetsFromSelection.map((asset:any)=>{
             data.push({
-                key: asset.id,
+                key: asset._id,
                 name: asset.name,
                 model: asset.model,
                 description: asset.description,
@@ -198,7 +195,7 @@ const Dashboard = () =>{
             return data
         })
         setDataTable(data)
-    })
+    },[ companySelected, unitSelected, assetSelected, loadingCharts])
 
     const columns = [
         {
@@ -229,91 +226,91 @@ const Dashboard = () =>{
 
     return(
         <div>
-                <div>
-                    <Row gutter={[40, 0]}>
-                        <Col span={18}>
-                            <Title level={2}>
-                                Select below to monitor:
-                            </Title>
-                        </Col>
-                    </Row>
-                    <Row gutter={[40, 0]}>
-                        <div className="div-info">
-                            <div className="div-center-item" >
-                                <Select style={{width: 300 }}
-                                allowClear
-                                placeholder="Select Company"
-                                optionFilterProp="children"
-                                showSearch
-                                value={companySelected}
-                                onChange={selectCompanyChange}
-                                >
-                                    {optionsCompanies}
-                                </Select>
-                            </div>
-                            <div className="div-center-item" >
-                                <Select style={{width: 300 }}
-                                allowClear
-                                disabled={selectEnableUnit}
-                                placeholder="Select Unit"
-                                optionFilterProp="children"
-                                showSearch
-                                value={unitSelected}
-                                onChange={selectUnitChange}
-                                >
-                                    {optionsUnits}
-                                </Select>
-                            </div>
-                            <div className="div-center-item" >
-                                <Select style={{width: 300 }}
-                                allowClear
-                                disabled={selectEnableAsset}
-                                placeholder="Select Asset"
-                                optionFilterProp="children"
-                                value={assetSelected}
-                                onChange={selectAssetChange}
-                                showSearch>
-                                    {optionsAssets}
-                                </Select>
-                            </div>
+            <div>
+                <Row gutter={[40, 0]}>
+                    <Col span={18}>
+                        <Title level={2}>
+                            Select below to monitor:
+                        </Title>
+                    </Col>
+                </Row>
+                <Row gutter={[40, 0]}>
+                    <div className="div-info">
+                        <div className="div-center-item" >
+                            <Select style={{width: 300 }}
+                            allowClear
+                            placeholder="Select Company"
+                            optionFilterProp="children"
+                            showSearch
+                            value={companySelected}
+                            onChange={selectCompanyChange}
+                            >
+                                {optionsCompanies}
+                            </Select>
                         </div>
-                    </Row>
-                    <Divider />
-                    {loadingPage ? <div>
-                        </div> : <div>
-                            <Row gutter={[40, 0]}>
-                                <div className="div-dashboard">
-                                    <div className="div-info-data">
-                                        <div className="div-info-data-item">
-                                            <span>Total Units: </span>
-                                            {dataDashboard?.totalUnits}
-                                        </div>
-                                        <div className="div-info-data-item">
-                                            <span>Total Assets: </span>
-                                            {dataDashboard?.totalAssets}
-                                        </div>
+                        <div className="div-center-item" >
+                            <Select style={{width: 300 }}
+                            allowClear
+                            disabled={selectEnableUnit}
+                            placeholder="Select Unit"
+                            optionFilterProp="children"
+                            showSearch
+                            value={unitSelected}
+                            onChange={selectUnitChange}
+                            >
+                                {optionsUnits}
+                            </Select>
+                        </div>
+                        <div className="div-center-item" >
+                            <Select style={{width: 300 }}
+                            allowClear
+                            disabled={selectEnableAsset}
+                            placeholder="Select Asset"
+                            optionFilterProp="children"
+                            value={assetSelected}
+                            onChange={selectAssetChange}
+                            showSearch>
+                                {optionsAssets}
+                            </Select>
+                        </div>
+                    </div>
+                </Row>
+                <Divider />
+                {loadingPage ? <div>
+                    </div> : <div>
+                        <Row gutter={[40, 0]}>
+                            <div className="div-dashboard">
+                                <div className="div-info-data">
+                                    <div className="div-info-data-item">
+                                        <span>Total Units: </span>
+                                        {dataDashboard?.totalUnits}
                                     </div>
-                                    <div className="div-chart">
-                                        <h2>Health</h2>
-                                        <SolidChart data={dataDashboard?.healthRatio} />
-                                    </div>
-                                    <div className="div-chart">
-                                        <MultipleSolidGauge
-                                            dataRun={dataDashboard?.runningCount}
-                                            dataAlert={dataDashboard?.alertingCount}
-                                            dataStopped={dataDashboard?.stoppedCount}
-                                             />
+                                    <div className="div-info-data-item">
+                                        <span>Total Assets: </span>
+                                        {dataDashboard?.totalAssets}
                                     </div>
                                 </div>
-                            </Row>
-                            <Row gutter={[40, 0]}>
-                                <Col span={24}>
-                                    <Table columns={columns} dataSource={dataTable} />
-                                </Col>
-                            </Row>
-                        </div>
-                    }
-                </div>
+                                <div className="div-chart">
+                                    <h2>Health</h2>
+                                    <SolidChart data={dataDashboard?.healthRatio} />
+                                </div>
+                                <div className="div-chart">
+                                    <MultipleSolidGauge
+                                        dataRun={dataDashboard?.runningCount}
+                                        dataAlert={dataDashboard?.alertingCount}
+                                        dataStopped={dataDashboard?.stoppedCount}
+                                            />
+                                </div>
+                            </div>
+                        </Row>
+                        <Row gutter={[40, 0]}>
+                            <Col span={24}>
+                                <Table columns={columns} dataSource={dataTable} />
+                            </Col>
+                        </Row>
+                    </div>
+                }
+            </div>
         </div>
     )
 }

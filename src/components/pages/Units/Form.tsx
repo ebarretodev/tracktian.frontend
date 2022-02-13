@@ -50,7 +50,7 @@ const FormApp = () => {
 
     companies.map((company: CompanyType) => {
         optionsCompanies.push(
-            <Select.Option key={company.id} value={company.name} >{company.name }</Select.Option>
+            <Select.Option key={company._id} value={company.name} >{company.name }</Select.Option>
         )
     })
 
@@ -58,7 +58,7 @@ const FormApp = () => {
 
     users.map((user: UserType) => {
         optionsUsers.push(
-            <Select.Option key={user.id} value={user.username} >{user.username }</Select.Option>
+            <Select.Option key={user._id} value={user.username} >{user.username }</Select.Option>
         )
     })
 
