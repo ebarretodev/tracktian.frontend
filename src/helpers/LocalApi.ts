@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const BASE_URL_API = `https://ebarreto-tractian-backend.herokuapp.com/`
+const BASE_URL_API = `https://ebarreto-tractian-backend.herokuapp.com`
 
 const localApi = {
     getUsers: ()  => { return axios.get(`${BASE_URL_API}/users`)},
