@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/tractian.frontend/static/css/main.a3f219f8.css",
-    "main.js": "/tractian.frontend/static/js/main.47c7ca5e.js",
+    "main.js": "/tractian.frontend/static/js/main.b26262ba.js",
     "static/js/787.24433ebf.chunk.js": "/tractian.frontend/static/js/787.24433ebf.chunk.js",
     "static/media/logo_white.svg": "/tractian.frontend/static/media/logo_white.c9994167a2c4651a76a75cc63829d0ff.svg",
     "index.html": "/tractian.frontend/index.html",
     "main.a3f219f8.css.map": "/tractian.frontend/static/css/main.a3f219f8.css.map",
-    "main.47c7ca5e.js.map": "/tractian.frontend/static/js/main.47c7ca5e.js.map",
+    "main.b26262ba.js.map": "/tractian.frontend/static/js/main.b26262ba.js.map",
     "787.24433ebf.chunk.js.map": "/tractian.frontend/static/js/787.24433ebf.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a3f219f8.css",
-    "static/js/main.47c7ca5e.js"
+    "static/js/main.b26262ba.js"
   ]
 }
