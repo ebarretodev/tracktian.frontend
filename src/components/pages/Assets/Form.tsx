@@ -3,6 +3,7 @@ import {Row, Col, Typography, Input, Form, Button, Radio, Switch, Slider, Select
 import useApi from "../../../helpers/LocalApi";
 import { useHistory } from "react-router";
 import { UnitType } from '../../../types'
+import { LoadingOutlined } from '@ant-design/icons'
 
 const {Title} = Typography
 
@@ -12,7 +13,7 @@ const layout = {
 }
 
 const FormApp = () => {
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     const history = useHistory()
     const api = useApi()
     const [units, setUnits] = useState([])
@@ -21,6 +22,7 @@ const FormApp = () => {
         api.getUnits()
             .then(res=>{
                 setUnits(res.data)
+                setLoading(false)
             })
     }, [])
 
@@ -38,7 +40,7 @@ const FormApp = () => {
             .then(res=>{
                 setLoading(false)
                 message.success('Asset Added Successfully!')
-                history.push('/assets')
+                history.push('/tractian.frontend/assets')
             })
             .catch(error => {
                 setLoading(false)
@@ -50,7 +52,7 @@ const FormApp = () => {
         <Row gutter={[40, 0]}>
           <Col span={23}>
             <Title style={{textAlign: 'center'}} level={2}>
-            Please Fill the Asset Form
+            Please Fill the Asset Form { loading ? <LoadingOutlined /> : <div></div>}
             </Title>
         </Col>
         </Row>
@@ -99,7 +101,7 @@ const FormApp = () => {
 
                     <div style={{textAlign: "right"}} >
                         <Button type="primary" loading={loading} htmlType="submit">Save</Button>{'  '}
-                        <Button type="primary" danger htmlType="button" onClick={()=>{history.push('/assets/')}}>Back</Button>
+                        <Button type="primary" danger htmlType="button" onClick={()=>{history.push('/tractian.frontend/assets/')}}>Back</Button>
                     </div>
                 </Form>
             </Col>

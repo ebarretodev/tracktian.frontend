@@ -30,9 +30,10 @@ const FormApp = () => {
             .then(res=>{
                 setCompany(res.data)
                 setLoadingPage(false)
+                setLoading(false)
             }).catch( error =>{
                 message.error(error)
-                history.push('/users')
+                history.push('/tractian.frontend/users')
             })
     }, [])
 
@@ -42,7 +43,7 @@ const FormApp = () => {
             .then(res=>{
                 setLoading(false)
                 message.success('User updated successfully!')
-                history.push('/companies')
+                history.push('/tractian.frontend/companies')
             })
             .catch(error => {
                 setLoading(false)
@@ -57,7 +58,7 @@ const FormApp = () => {
             <Row gutter={[40, 0]}>
             <Col span={23}>
                 <Title style={{textAlign: 'center'}} level={2}>
-                Please updated the User info
+                Please updated the User info { loading ? <LoadingOutlined /> : <div></div>}
                 { loadingPage ? <LoadingOutlined /> : <div></div>}
                 </Title>
             </Col>
@@ -85,7 +86,7 @@ const FormApp = () => {
                     </Form.Item>
                         <div style={{textAlign: "right"}} >
                             <Button type="primary" loading={loading} htmlType="submit">Save</Button>{'  '}
-                            <Button type="primary" danger htmlType="button" onClick={()=>{history.push('/companies/')}}>Back</Button>
+                            <Button type="primary" danger htmlType="button" onClick={()=>{history.push('/tractian.frontend/companies/')}}>Back</Button>
                         </div>
                     </Form>
                 </Col>

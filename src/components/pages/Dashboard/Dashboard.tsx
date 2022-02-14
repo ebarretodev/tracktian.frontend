@@ -1,6 +1,6 @@
 import React, { useState, useEffect, ReactElement } from "react";
 import { Row, Col, Typography, Select, Divider, Table  } from "antd";
-import { ApartmentOutlined as UnitIcon, BankOutlined as CompanyIcon, SubnodeOutlined as AssetIcon, AreaChartOutlined, ArrowDownOutlined } from "@ant-design/icons"
+import { ApartmentOutlined as UnitIcon, BankOutlined as CompanyIcon, SubnodeOutlined as AssetIcon, LoadingOutlined } from "@ant-design/icons"
 import useApi from "../../../helpers/LocalApi";
 import { CompanyType, UnitType, AssetType, DataDashboardType } from '../../../types'
 import './style.css'
@@ -26,6 +26,7 @@ const Dashboard = () =>{
     const [users, setUsers] = useState([])
     const api = useApi()
 
+    const [loading, setLoading] = useState(true)
     const [loadingPage, setLoadingPage] = useState(true)
     const [loadingCompanies, setLoadingCompanies] = useState(false)
     const [loadingUnits, setLoadingUnits] = useState(false)
@@ -71,6 +72,7 @@ const Dashboard = () =>{
     useEffect(()=>{
         if(loadingAssets && loadingCompanies && loadingUnits && loadingUsers){
             setLoadingCharts(true)
+            setLoading(false)
         }
     },[loadingAssets, loadingCompanies, loadingUnits, loadingUsers])
 
@@ -230,7 +232,7 @@ const Dashboard = () =>{
                 <Row gutter={[40, 0]}>
                     <Col span={18}>
                         <Title level={2}>
-                            Select below to monitor:
+                            Select below to monitor:  { loading ? <LoadingOutlined /> : <div></div>}
                         </Title>
                     </Col>
                 </Row>

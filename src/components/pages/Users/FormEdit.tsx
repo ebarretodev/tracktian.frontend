@@ -14,7 +14,7 @@ const layout = {
 }
 
 const FormApp = () => {
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     const [loadingPage, setLoadingPage] = useState(true)
     const [companies, setCompanies] = useState([])
     const [user, setUser] = useState({
@@ -36,6 +36,7 @@ const FormApp = () => {
                 console.log(res)
                 setUser(res.data)
                 setLoadingPage(false)
+                setLoading(false)
             }).catch( error =>{
                 message.error(error)
                 history.push('/users')
@@ -64,7 +65,7 @@ const FormApp = () => {
             .then(res=>{
                 setLoading(false)
                 message.success('User updated successfully!')
-                history.push('/users')
+                history.push('/tractian.frontend/users')
             })
             .catch(error => {
                 setLoading(false)
@@ -79,7 +80,7 @@ const FormApp = () => {
             <Row gutter={[40, 0]}>
             <Col span={23}>
                 <Title style={{textAlign: 'center'}} level={2}>
-                Please updated the User info
+                Please updated the User info { loading ? <LoadingOutlined /> : <div></div>}
                 { loadingPage ? <LoadingOutlined /> : <div></div>}
                 </Title>
             </Col>
@@ -120,7 +121,7 @@ const FormApp = () => {
                         </Form.Item>
                         <div style={{textAlign: "right"}} >
                             <Button type="primary" loading={loading} htmlType="submit">Save</Button>{'  '}
-                            <Button type="primary" danger htmlType="button" onClick={()=>{history.push('/users')}}>Back</Button>
+                            <Button type="primary" danger htmlType="button" onClick={()=>{history.push('/tractian.frontend/users')}}>Back</Button>
                         </div>
                     </Form>
                 </Col>

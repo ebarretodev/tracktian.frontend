@@ -3,6 +3,7 @@ import {Row, Col, Typography, Input, Form, Button, Radio, Select, message} from 
 import useApi from '../../../helpers/LocalApi'
 import { useHistory } from "react-router";
 import { CompanyType } from '../../../types'
+import { LoadingOutlined } from '@ant-design/icons'
 
 const {Title} = Typography
 
@@ -12,7 +13,7 @@ const layout = {
 }
 
 const FormApp = () => {
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     const [loadingPage, setLoadingPage] = useState(true)
     const history = useHistory()
     const [companies, setCompanies] = useState([])
@@ -23,6 +24,7 @@ const FormApp = () => {
             .then(res=>{
                 setCompanies(res.data)
                 setLoadingPage(false)
+                setLoading(false)
             })
     }, [])
 
@@ -32,7 +34,7 @@ const FormApp = () => {
             .then(res=>{
                 setLoading(false)
                 message.success('User Added Successfully!')
-                history.push('/users')
+                history.push('/tractian.frontend/users')
             })
             .catch(error => {
                 setLoading(false)
@@ -54,7 +56,7 @@ const FormApp = () => {
             <Row gutter={[40, 0]}>
             <Col span={23}>
                 <Title style={{textAlign: 'center'}} level={2}>
-                Please Fill the User Form
+                Please Fill the User Form { loading ? <LoadingOutlined /> : <div></div>}
                 </Title>
             </Col>
             </Row>
@@ -94,7 +96,7 @@ const FormApp = () => {
                         </Form.Item>
                         <div style={{textAlign: "right"}} >
                             <Button type="primary" loading={loading} htmlType="submit">Save</Button>{'  '}
-                            <Button type="primary" danger htmlType="button" onClick={()=>{history.push('/users')}}>Back</Button>
+                            <Button type="primary" danger htmlType="button" onClick={()=>{history.push('/tractian.frontend/users')}}>Back</Button>
                         </div>
                     </Form>
                 </Col>

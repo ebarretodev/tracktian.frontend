@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Row, Col, Typography, Input, Form, Button, Radio, Switch, Slider, Select, message} from 'antd'
 import useApi from "../../../helpers/LocalApi";
 import { useHistory } from "react-router";
+import { LoadingOutlined } from '@ant-design/icons'
 
 const {Title} = Typography
 
@@ -21,7 +22,7 @@ const FormApp = () => {
             .then(res=>{
                 setLoading(false)
                 message.success('Company Added Successfully!')
-                history.push('/companies')
+                history.push('/tractian.frontend/companies')
             })
             .catch(error => {
                 setLoading(false)
@@ -60,7 +61,7 @@ const FormApp = () => {
                     </Form.Item>
                     <div style={{textAlign: "right"}} >
                         <Button type="primary" loading={loading} htmlType="submit">Save</Button>{'  '}
-                        <Button type="primary" danger htmlType="button" onClick={()=>{history.push('/companies/')}}>Back</Button>
+                        <Button type="primary" danger htmlType="button" onClick={()=>{history.push('/tractian.frontend/companies/')}}>Back</Button>
                     </div>
                 </Form>
             </Col>

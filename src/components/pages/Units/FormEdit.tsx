@@ -3,7 +3,7 @@ import {Row, Col, Typography, Input, Form, Button, message, Select} from 'antd'
 import useApi from "../../../helpers/LocalApi";
 import { useHistory, useParams } from "react-router";
 import { CompanyType, UserType } from '../../../types'
-
+import { LoadingOutlined } from '@ant-design/icons'
 
 type ParamsTypes = {
     _id: string,
@@ -39,9 +39,10 @@ const FormApp = () => {
             .then(res=>{
                 setUnit(res.data)
                 setLoadingPage(false)
+                setLoading(false)
             }).catch( error =>{
                 message.error(error)
-                history.push('/units')
+                history.push('/tractian.frontend/units')
             })
     }, [])
 
@@ -65,7 +66,7 @@ const FormApp = () => {
             .then(res=>{
                 setLoading(false)
                 message.success('Unit Edited Successfully!')
-                history.push('/units')
+                history.push('/tractian.frontend/units')
             })
             .catch(error => {
                 setLoading(false)
@@ -99,7 +100,7 @@ const FormApp = () => {
         <Row gutter={[40, 0]}>
           <Col span={23}>
             <Title style={{textAlign: 'center'}} level={2}>
-            Please Fill the Unit Form
+            Please Fill the Unit Form { loading ? <LoadingOutlined /> : <div></div>}
             </Title>
         </Col>
         </Row>
@@ -130,7 +131,7 @@ const FormApp = () => {
                     </Form.Item>
                     <div style={{textAlign: "right"}} >
                         <Button type="primary" loading={loading} htmlType="submit">Save</Button>{'  '}
-                        <Button type="primary" danger htmlType="button" onClick={()=>{history.push('/units')}}>Back</Button>
+                        <Button type="primary" danger htmlType="button" onClick={()=>{history.push('/tractian.frontend/units')}}>Back</Button>
                     </div>
                 </Form>
             </Col>

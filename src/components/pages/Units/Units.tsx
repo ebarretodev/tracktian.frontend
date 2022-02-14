@@ -1,6 +1,6 @@
 import { Row, Col, Typography, Button, Table, message, Space, Popconfirm } from "antd";
 import { useHistory } from "react-router";
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import { DeleteOutlined, EditOutlined, LoadingOutlined } from '@ant-design/icons'
 import React, {useEffect, useState} from "react";
 import useApi from '../../../helpers/LocalApi'
 
@@ -10,6 +10,7 @@ const {Title} = Typography
 const Units = () => {
     const history = useHistory()
     const [allData, setAllData] = useState([])
+    const [loading, setLoading] = useState(true)
     const api = useApi()
 
 
@@ -18,6 +19,7 @@ const Units = () => {
             .then(res=>{
                 setAllData(res.data)
                 console.log(res.data)
+                setLoading(false)
             })
     }
 
@@ -26,7 +28,7 @@ const Units = () => {
     },[])
 
     const handleClick = () => {
-        history.push('/units/add')
+        history.push('/tractian.frontend/units/add')
     }
 
     const deleteUnit = (unit: any) => {
@@ -49,7 +51,7 @@ const Units = () => {
             owner: unit.owner,
             company: unit.company,
             actions:<Space>
-                        <Button type="default" htmlType="button" onClick={()=>{history.push(`/units/${unit._id}`)}}><EditOutlined /></Button>
+                        <Button type="default" htmlType="button" onClick={()=>{history.push(`/tractian.frontend/units/${unit._id}`)}}><EditOutlined /></Button>
                         <Popconfirm title="Are you sure to delete this user?" onConfirm={()=>{deleteUnit(unit)}} okText="Yes" cancelText="No" >
                             <Button type="default" danger htmlType="button" ><DeleteOutlined /></Button>
                         </Popconfirm>
@@ -83,7 +85,7 @@ const Units = () => {
             <Row gutter={[40, 0]}>
                 <Col span={18}>
                     <Title level={2}>
-                        Units list
+                        Units list { loading ? <LoadingOutlined /> : <div></div>}
                     </Title>
                 </Col>
                 <Col span={6}>

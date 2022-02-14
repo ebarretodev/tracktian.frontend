@@ -14,23 +14,23 @@ const SideNav = (props: SideNavProps) => {
     const history = useHistory()
 
     const handleDashboardClick = () => {
-        history.push('/dashboard')
+        history.push('/tractian.frontend/dashboard')
     }
 
     const handleUserClick = () => {
-        history.push('/users')
+        history.push('/tractian.frontend/users')
     }
 
     const handleCompaniesClick = () => {
-        history.push('/companies')
+        history.push('/tractian.frontend/companies')
     }
 
     const handleUnitsClick = () => {
-        history.push('/units')
+        history.push('/tractian.frontend/units')
     }
 
     const handleAssetsClick = () => {
-        history.push('/assets')
+        history.push('/tractian.frontend/assets')
     }
 
 
@@ -44,13 +44,13 @@ const SideNav = (props: SideNavProps) => {
                     <AreaChartOutlined />
                     <span> Dashboard</span>
                 </Menu.Item>
-                <Menu.Item key='2' onClick={handleUserClick} >
-                    <UserOutlined />
-                    <span> Users</span>
-                </Menu.Item>
-                <Menu.Item key='3' onClick={handleCompaniesClick} >
+                <Menu.Item key='2' onClick={handleCompaniesClick} >
                     <BankOutlined />
                     <span> Companies</span>
+                </Menu.Item>
+                <Menu.Item key='3' onClick={handleUserClick} >
+                    <UserOutlined />
+                    <span> Users</span>
                 </Menu.Item>
                 <Menu.Item key='4' onClick={handleUnitsClick} >
                     <ApartmentOutlined />

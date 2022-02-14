@@ -1,6 +1,6 @@
 import { Row, Col, Typography, Button, Table, message, Space, Popconfirm } from "antd";
 import { useHistory } from "react-router";
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import { DeleteOutlined, EditOutlined, LoadingOutlined } from '@ant-design/icons'
 import React, {useEffect, useState} from "react";
 import useApi from '../../../helpers/LocalApi'
 
@@ -9,6 +9,7 @@ const {Title} = Typography
 const Companies = () => {
     const history = useHistory()
     const [allData, setAllData] = useState([])
+    const [loading, setLoading] = useState(true)
     const api = useApi()
 
     const getCompanies = () => {
@@ -16,6 +17,7 @@ const Companies = () => {
             .then(res=>{
                 setAllData(res.data)
                 console.log(res.data)
+                setLoading(false)
             })
     }
 
@@ -62,7 +64,7 @@ const Companies = () => {
             address: company.address,
             business: company.business,
             actions:<Space>
-                        <Button type="default" htmlType="button" onClick={()=>{history.push(`/companies/${company._id}`)}}><EditOutlined /></Button>
+                        <Button type="default" htmlType="button" onClick={()=>{history.push(`/tractian.frontend/companies/${company._id}`)}}><EditOutlined /></Button>
                         <Popconfirm title="Are you sure to delete this user?" onConfirm={()=>{deleteCompany(company)}} okText="Yes" cancelText="No" >
                             <Button type="default" danger htmlType="button" ><DeleteOutlined /></Button>
                         </Popconfirm>
@@ -73,7 +75,7 @@ const Companies = () => {
     })
 
     const handleClick = () => {
-        history.push('/companies/add')
+        history.push('/tractian.frontend/companies/add')
     }
 
     return(
@@ -81,7 +83,7 @@ const Companies = () => {
             <Row gutter={[40, 0]}>
                 <Col span={18}>
                     <Title level={2}>
-                        Companies list
+                        Companies list { loading ? <LoadingOutlined /> : <div></div>}
                     </Title>
                 </Col>
                 <Col span={6}>

@@ -1,6 +1,6 @@
 import { Row, Col, Typography, Button, Table, message, Space, Popconfirm } from "antd";
 import { useHistory } from "react-router";
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
+import { DeleteOutlined, EditOutlined, LoadingOutlined } from '@ant-design/icons'
 import React, {useEffect, useState} from "react";
 import useApi from '../../../helpers/LocalApi'
 
@@ -9,12 +9,14 @@ const {Title} = Typography
 const Assets = () => {
     const history = useHistory()
     const [allData, setAllData] = useState([])
+    const [loading, setLoading] = useState(true)
     const api = useApi()
 
     const getAssets = () => {
         api.getAssets()
             .then(res=>{
                 setAllData(res.data)
+                setLoading(false)
             })
     }
 
@@ -76,7 +78,7 @@ const Assets = () => {
             status: asset.status,
             health: `${asset.health}%`,
             actions:<Space>
-                        <Button type="default" htmlType="button" onClick={()=>{history.push(`/assets/${asset._id}`)}}><EditOutlined /></Button>
+                        <Button type="default" htmlType="button" onClick={()=>{history.push(`/tractian.frontend/assets/${asset._id}`)}}><EditOutlined /></Button>
                         <Popconfirm title="Are you sure to delete this user?" onConfirm={()=>{deleteAsset(asset)}} okText="Yes" cancelText="No" >
                             <Button type="default" danger htmlType="button" ><DeleteOutlined /></Button>
                         </Popconfirm>
@@ -86,7 +88,7 @@ const Assets = () => {
     })
 
     const handleClick = () => {
-        history.push('/assets/add')
+        history.push('/tractian.frontend/assets/add')
     }
 
     return(
@@ -94,7 +96,7 @@ const Assets = () => {
             <Row gutter={[40, 0]}>
                 <Col span={18}>
                     <Title level={2}>
-                        Assets list
+                        Assets list{ loading ? <LoadingOutlined /> : <div></div>}
                     </Title>
                 </Col>
                 <Col span={6}>

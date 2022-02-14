@@ -3,6 +3,7 @@ import {Row, Col, Typography, Input, Form, Button, Radio, Switch, Slider, Select
 import useApi from "../../../helpers/LocalApi";
 import { useHistory, useParams } from "react-router";
 import { UnitType, ParamsTypes } from '../../../types'
+import { LoadingOutlined } from '@ant-design/icons'
 
 const {Title} = Typography
 
@@ -32,9 +33,10 @@ const FormApp = () => {
             .then(res=>{
                 setAsset(res.data)
                 setLoadingPage(false)
+                setLoading(false)
             }).catch( error =>{
                 message.error(error)
-                history.push('/assets')
+                history.push('/tractian.frontend/assets')
             })
     }, [])
 
@@ -59,7 +61,7 @@ const FormApp = () => {
             .then(res=>{
                 setLoading(false)
                 message.success('Asset updated Successfully!')
-                history.push('/assets')
+                history.push('/tractian.frontend/assets')
             })
             .catch(error => {
                 setLoading(false)
@@ -74,7 +76,7 @@ const FormApp = () => {
         <Row gutter={[40, 0]}>
           <Col span={23}>
             <Title style={{textAlign: 'center'}} level={2}>
-            Please Fill the Asset Form
+            Please Fill the Asset Form { loading ? <LoadingOutlined /> : <div></div>}
             </Title>
         </Col>
         </Row>
@@ -123,7 +125,7 @@ const FormApp = () => {
 
                     <div style={{textAlign: "right"}} >
                         <Button type="primary" loading={loading} htmlType="submit">Save</Button>{'  '}
-                        <Button type="primary" danger htmlType="button" onClick={()=>{history.push('/assets/')}}>Back</Button>
+                        <Button type="primary" danger htmlType="button" onClick={()=>{history.push('/tractian.frontend/assets/')}}>Back</Button>
                     </div>
                 </Form>
             </Col>

@@ -49,25 +49,25 @@ const ApplicationRoutes = () => {
                     </Header>
                     <Content className="content">
                         <Switch>
-                            <Route path="/dashboard" exact component={Dashboard} />
+                            <Route path="/tractian.frontend/dashboard" exact component={Dashboard} />
 
-                            <Route path="/users" exact component={User} />
-                            <Route path="/users/add" exact component={FormUser} />
-                            <Route path="/users/:_id" component={FormUserEdit} />
+                            <Route path="/tractian.frontend/users" exact component={User} />
+                            <Route path="/tractian.frontend/users/add" exact component={FormUser} />
+                            <Route path="/tractian.frontend/users/:_id" component={FormUserEdit} />
 
-                            <Route path="/companies" exact component={Companies} />
-                            <Route path="/companies/add" exact component={FormCompanies} />
-                            <Route path="/companies/:_id" component={FormCompaniesEdit} />
+                            <Route path="/tractian.frontend/companies" exact component={Companies} />
+                            <Route path="/tractian.frontend/companies/add" exact component={FormCompanies} />
+                            <Route path="/tractian.frontend/companies/:_id" component={FormCompaniesEdit} />
 
-                            <Route path="/units" exact component={Units} />
-                            <Route path="/units/add" exact component={FormUnits} />
-                            <Route path="/units/:_id" component={FormUnitsEdit} />
+                            <Route path="/tractian.frontend/units" exact component={Units} />
+                            <Route path="/tractian.frontend/units/add" exact component={FormUnits} />
+                            <Route path="/tractian.frontend/units/:_id" component={FormUnitsEdit} />
 
-                            <Route path="/assets" exact component={Assets} />
-                            <Route path="/assets/add" exact component={FormAssets} />
-                            <Route path="/assets/:_id" component={FormAssetsEdit} />
+                            <Route path="/tractian.frontend/assets" exact component={Assets} />
+                            <Route path="/tractian.frontend/assets/add" exact component={FormAssets} />
+                            <Route path="/tractian.frontend/assets/:_id" component={FormAssetsEdit} />
 
-                            <Redirect to="/dashboard" from="/" />
+                            <Redirect to="/tractian.frontend/dashboard" from="/" />
                         </Switch>
                     </Content>
                 </Layout>
